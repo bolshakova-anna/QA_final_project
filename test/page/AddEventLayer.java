@@ -42,19 +42,19 @@ public class AddEventLayer extends BasePage<AddEventLayer> {
     }
 
     public AddEventLayer setCalendarDay(int day){
-        String wrapperValue = "//*[@value = " + Integer.toString(day) + "]";
+        String wrapperValue = "//*[@value = " + day + "]";
         $(By.xpath(CALENDAR_DAY_WRAPPER + wrapperValue)).click();
         return this;
     }
 
     public AddEventLayer setCalendarMonth(int month){
-        String wrapperValue = "//*[@value = " + Integer.toString(month) + "]";
+        String wrapperValue = "//*[@value = " + month + "]";
         $(By.xpath(CALENDAR_MONTH_WRAPPER + wrapperValue)).click();
         return this;
     }
 
     public AddEventLayer setCalendarYear(int year){
-        String wrapperValue = "//*[@value = " + Integer.toString(year) + "]";
+        String wrapperValue = "//*[@value = " + year + "]";
         $(By.xpath(CALENDAR_YEAR_WRAPPER + wrapperValue)).click();
         return this;
     }

@@ -6,24 +6,20 @@ import page.EventPage;
 import page.FeedPage;
 import page.LoginPage;
 import java.util.Calendar;
-
 import static org.junit.Assert.assertTrue;
 
 @DisplayName("Тест добавления Дня Свадьбы с незарегестрированнным пользователем на сегодня")
 public class TestAddWeddingEventWithNoRegisterPersonForToday extends BaseTest{
-    private static String username = "technoPol27";
-    private static String password = "technoPolis2022";
-    private static String personName = "Name Surname";
-    private static String eventType = "День свадьбы";
-    public static final String url = "https://ok.ru/";
+    private static final String username = "technoPol27";
+    private static final String password = "technoPolis2022";
+    private static final String personName = "Name Surname";
+    private static final String eventType = "День свадьбы";
 
     @DisplayName("Тест добавления Дня Свадьбы с незарегестрированнным пользователем на сегодня")
     @Test
     public void testAddWeddingEventWithNoRegisterPersonForToday(){
-        openPage(url);
         LoginPage loginpage = new LoginPage();
-        FeedPage feedPage = new FeedPage();
-        loginpage.login(username, password);
+        FeedPage feedPage = loginpage.login(username, password);
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -39,8 +35,9 @@ public class TestAddWeddingEventWithNoRegisterPersonForToday extends BaseTest{
                 .setCalendarMonth(month)
                 .setCalendarYear(year);
         eventPage = addEventLayer.saveEvent();
-        eventPage.refreshPage();
+        eventPage.refreshCheckedPage();
         assertTrue("Тип праздника и имя человека отображаются верно", eventPage.isEventsConsistThatEvent(personName,eventType));
+        //clean up
+        eventPage.deleteEvent(personName,eventType);
     }
-
 }

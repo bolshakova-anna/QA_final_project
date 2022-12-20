@@ -6,8 +6,9 @@ import org.junit.Rule;
 import org.openqa.selenium.*;
 import utils.UserTestBot;
 
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
 
 
 public class LoginPage extends BasePage<LoginPage>{
@@ -31,21 +32,36 @@ public class LoginPage extends BasePage<LoginPage>{
     $(PASSWORD_FIELD).shouldBe(Condition.visible.because("Не отобралились поля ввода"));
   }
 
-  public LoginPage login(String OKUsername,String OKPassword) {
+  public FeedPage login(String OKUsername, String OKPassword) {
     $(LOGIN_FIELD).val(OKUsername);
     $(PASSWORD_FIELD).val(OKPassword);
     $(LOGIN_BUTTON).shouldBe(Condition.visible.because("Нет кнопки входа")).click();
+    return new FeedPage();
+  }
+
+  public LoginPage fillUsername(String data) {
+    $(LOGIN_FIELD).val(data);
     return this;
   }
 
-  public LoginPage login(UserTestBot userTestBot) {
-    $(LOGIN_FIELD).val(userTestBot.getLogin());
-    $(PASSWORD_FIELD).val(userTestBot.getPassword());
-    $(LOGIN_BUTTON).shouldBe(Condition.visible.because("Нет кнопки входа")).click();
+  public LoginPage fillPassword(String data){
+    $(PASSWORD_FIELD).val(data);
     return this;
+  }
+
+  public void pressLoginButton(){
+    $(LOGIN_BUTTON).shouldBe(Condition.visible.because("Нет кнопки входа")).click();
+  }
+  public FeedPage login(UserTestBot userTestBot) {
+    LoginPage loginPage = this;
+    loginPage.fillUsername(UserTestBot.getLogin());
+    loginPage.fillPassword(UserTestBot.getPassword());
+    loginPage.pressLoginButton();
+    return new FeedPage();
   }
 
   public String getLoginErrorText(){
     return $(LOGIN_ERROR_TEXT).text();
   }
+
 }

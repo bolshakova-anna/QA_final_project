@@ -6,9 +6,9 @@ public class UserTestBot {
     private static String Name;
 
     public UserTestBot(String login, String password, String name){
-        this.login = login;
-        this.password = password;
-        this.Name = name;
+        UserTestBot.login = login;
+        UserTestBot.password = password;
+        Name = name;
     }
 
     public static String getLogin() {

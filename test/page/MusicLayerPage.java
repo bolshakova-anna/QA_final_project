@@ -3,8 +3,10 @@ package page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
 
 public class MusicLayerPage extends BasePage<MusicLayerPage>{
     private static final By MUSIC_SEARCH_FIELD = By.xpath("//*[@placeholder=\"Поиск\" and @data-l=\"t,input\"]");
@@ -41,7 +43,8 @@ public class MusicLayerPage extends BasePage<MusicLayerPage>{
         return this;
     }
 
-    public static SelenideElement getMusicListElement() {
-        return $(MY_MUSIC_LIST_INFO);
+    public boolean isMusicListContain(String title){
+        $(MY_MUSIC_LIST_INFO).shouldBe(visible);
+        return $(MY_MUSIC_LIST_INFO).has(text(title));
     }
 }
